@@ -4,6 +4,10 @@ import firebase from '~/plugins/firebase'
 const db = firebase.firestore()
 const usersRef = db.collection('users')
 
+export const state = () => ({
+  users: []
+})
+
 export const actions = {
   addUser ({ commit }, payload) {
     const user = {
@@ -25,5 +29,36 @@ export const actions = {
           reject(error)
         })
     })
+  },
+  fetchUsers ({ commit }) {
+    commit('initUsers')
+    return new Promise((resolve, reject) => {
+      usersRef.orderBy('created_at', 'desc').get()
+        .then((res) => {
+          res.forEach((doc) => {
+            commit('addUsers', doc.data())
+            resolve(true)
+          })
+        })
+        .catch((error) => {
+          console.error('An error occurred in fetchUsers(): ', error)
+          reject(error)
+        })
+    })
+  }
+}
+
+export const mutations = {
+  initUsers (state) {
+    state.users = []
+  },
+  addUsers (state, users) {
+    state.users.push(users)
+  }
+}
+
+export const getters = {
+  getUsers (state) {
+    return state.users
   }
 }
