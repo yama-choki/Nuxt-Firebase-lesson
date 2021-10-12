@@ -41,6 +41,7 @@ export const actions = {
           })
         })
         .catch((error) => {
+          // eslint-disable-next-line no-console
           console.error('An error occurred in fetchUsers(): ', error)
           reject(error)
         })

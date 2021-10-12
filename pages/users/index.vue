@@ -7,16 +7,21 @@
     </div>
 
     <div class="row justify-content-center mb-3">
-      <div class="col-12 col-sm-2 font-weight-bold">Name</div>
-      <div class="col-12 col-sm-1 font-weight-bold">Age</div>
+      <div class="col-12 col-sm-2 font-weight-bold">
+        Name
+      </div>
+      <div class="col-12 col-sm-1 font-weight-bold">
+        Age
+      </div>
     </div>
 
     <div
       v-for="(user, key) in $store.getters.getUsers"
       :key="key"
-      class="row justify-content-center mb-3">
+      class="row justify-content-center mb-3"
+    >
       <div class="col-12 col-sm-2">
-        {{ user.name.first}} {{ user.name.last}}
+        {{ user.name.first }} {{ user.name.last }}
       </div>
       <div class="col-12 col-sm-1">
         {{ user.age }}
