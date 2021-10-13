@@ -33,7 +33,8 @@ export const actions = {
   fetchUsers ({ commit }) {
     commit('initUsers')
     return new Promise((resolve, reject) => {
-      usersRef.orderBy('created_at', 'desc').get()
+      // 以下の行を変更
+      usersRef.where('age', '>=', '25').get()
         .then((res) => {
           res.forEach((doc) => {
             commit('addUsers', doc.data())
@@ -41,7 +42,6 @@ export const actions = {
           })
         })
         .catch((error) => {
-          // eslint-disable-next-line no-console
           console.error('An error occurred in fetchUsers(): ', error)
           reject(error)
         })
